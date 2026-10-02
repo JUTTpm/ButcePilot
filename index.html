@@ -1,0 +1,4479 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,
+      initial-scale=1.0,
+      maximum-scale=1.0,
+      user-scalable=no">
+
+<title>BütçePilot</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    background: #05090b;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+button,
+input {
+    font-family: Arial, sans-serif;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* =========================
+   ANA UYGULAMA
+   ========================= */
+
+.app {
+    min-height: 100vh;
+    padding: 22px 18px 30px;
+    background:
+        radial-gradient(
+            circle at 50% -10%,
+            rgba(26, 211, 193, 0.16),
+            transparent 42%
+        ),
+        #05090b;
+}
+
+/* ÜST BAR */
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.logo {
+    width: 43px;
+    height: 43px;
+    border-radius: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(
+        145deg,
+        #19d5c3,
+        #087f79
+    );
+
+    color: #031010;
+    font-size: 21px;
+    font-weight: 900;
+
+    box-shadow:
+        0 0 22px rgba(25, 213, 195, 0.20);
+}
+
+.brand {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: .4px;
+}
+
+.brand span {
+    color: #20d5c3;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 8px 11px;
+    border: 1px solid #173d40;
+    border-radius: 20px;
+
+    background: rgba(8, 21, 23, .8);
+
+    color: #8ca8aa;
+    font-size: 11px;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #1bd6c3;
+
+    box-shadow:
+        0 0 8px rgba(27, 214, 195, .8);
+}
+
+/* =========================
+   HERO
+   ========================= */
+
+.hero {
+    position: relative;
+    overflow: hidden;
+
+    padding: 25px 21px 23px;
+
+    border: 1px solid #164b4d;
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(12, 35, 38, .96),
+            rgba(6, 17, 19, .98)
+        );
+
+    box-shadow:
+        0 18px 50px rgba(0, 0, 0, .30),
+        inset 0 1px 0 rgba(255,255,255,.025);
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+
+    width: 150px;
+    height: 150px;
+
+    right: -75px;
+    top: -75px;
+
+    border-radius: 50%;
+
+    background: rgba(23, 213, 195, .09);
+    filter: blur(3px);
+}
+
+.hero-label {
+    color: #20d5c3;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+
+    margin-bottom: 12px;
+}
+
+.hero-title {
+    font-size: 29px;
+    line-height: 1.15;
+    font-weight: 800;
+
+    margin-bottom: 12px;
+}
+
+.hero-title span {
+    color: #20d5c3;
+}
+
+.hero-description {
+    color: #91a8aa;
+    font-size: 14px;
+    line-height: 1.55;
+
+    max-width: 330px;
+}
+
+.start-button {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    margin-top: 23px;
+
+    padding: 16px 18px;
+
+    border: none;
+    border-radius: 15px;
+
+    background: linear-gradient(
+        135deg,
+        #20d5c3,
+        #12aaa0
+    );
+
+    color: #031010;
+
+    font-size: 15px;
+    font-weight: 800;
+
+    box-shadow:
+        0 9px 25px rgba(21, 207, 190, .18);
+}
+
+.start-button:active {
+    transform: scale(.98);
+}
+
+/* =========================
+   ÖZET KARTLARI
+   ========================= */
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 25px 2px 12px;
+}
+
+.section-heading-title {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.section-heading-sub {
+    color: #61777a;
+    font-size: 11px;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.feature {
+    min-height: 112px;
+
+    padding: 16px;
+
+    border: 1px solid #13383c;
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #0a1719,
+            #071012
+        );
+}
+
+.feature-icon {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background: #0c2528;
+    color: #20d5c3;
+
+    font-size: 15px;
+    font-weight: 800;
+
+    margin-bottom: 12px;
+}
+
+.feature-title {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.feature-text {
+    margin-top: 5px;
+
+    color: #6f8588;
+    font-size: 11px;
+    line-height: 1.35;
+}
+
+/* =========================
+   NASIL ÇALIŞIR
+   ========================= */
+
+.flow {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.flow-item {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    padding: 13px 14px;
+
+    border: 1px solid #102f33;
+    border-radius: 14px;
+
+    background: #071113;
+}
+
+.flow-number {
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background: #0c292c;
+    color: #20d5c3;
+
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.flow-title {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.flow-text {
+    margin-top: 3px;
+
+    color: #647b7e;
+    font-size: 10px;
+}
+
+/* =========================
+   ALT BİLGİ
+   ========================= */
+
+.footer {
+    margin-top: 25px;
+
+    text-align: center;
+
+    color: #42585b;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+/* =========================
+   BÜTÇE EKRANI İÇİN
+   ========================= */
+
+.screen {
+    min-height: 100vh;
+    padding: 20px;
+    background: #05090b;
+}
+
+.box {
+    border: 1px solid #153d41 !important;
+    border-radius: 17px !important;
+    background: #091417 !important;
+    box-shadow: 0 8px 25px rgba(0,0,0,.12);
+}
+
+.box-title {
+    color: #d8eeee !important;
+    font-weight: 700 !important;
+}
+
+input {
+    color: #ffffff !important;
+    background: #071113 !important;
+    border-color: #19454a !important;
+}
+
+input:focus {
+    border-color: #20d5c3 !important;
+    box-shadow: 0 0 0 2px rgba(32,213,195,.08);
+}
+
+.result-card {
+    border-color: #1b5a59 !important;
+    background: #081719 !important;
+}
+
+.result-value {
+    color: #20d5c3 !important;
+}
+
+</style>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b1a1f">
+</head>
+
+<body>
+
+<div id="app">
+
+    <div class="app">
+
+        <div class="topbar">
+
+            <div class="logo-area">
+
+                <div class="logo">
+                    ₺
+                </div>
+
+                <div class="brand">
+                    Bütçe<span>Pilot</span>
+                </div>
+
+            </div>
+
+            <div class="status">
+                <div class="status-dot"></div>
+                HAZIR
+            </div>
+
+        </div>
+
+
+        <div class="hero">
+
+            <div class="hero-label">
+                AKILLI BÜTÇE YÖNETİMİ
+            </div>
+
+            <div class="hero-title">
+                Paran için<br>
+                <span>net bir plan oluştur.</span>
+            </div>
+
+            <div class="hero-description">
+                Gelirlerini, giderlerini ve hedeflerini
+                gir. BütçePilot kalan paranı hesaplasın
+                ve ayını nasıl planlayabileceğini göstersin.
+            </div>
+
+            <button
+                class="start-button"
+                type="button"
+                onclick="openBudget()">
+
+                Bütçemi Oluşturmaya Başla →
+                
+            </button>
+
+        </div>
+
+
+        <div class="section-heading">
+
+            <div class="section-heading-title">
+                BütçePilot neler yapar?
+            </div>
+
+            <div class="section-heading-sub">
+                4 temel adım
+            </div>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    ₺
+                </div>
+
+                <div class="feature-title">
+                    Gelirlerini takip et
+                </div>
+
+                <div class="feature-text">
+                    Maaş ve ek gelirlerini tek yerde topla.
+                </div>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    −
+                </div>
+
+                <div class="feature-title">
+                    Giderlerini ayır
+                </div>
+
+                <div class="feature-text">
+                    Sabit ve değişken harcamalarını hesapla.
+                </div>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    %
+                </div>
+
+                <div class="feature-title">
+                    Paranını planla
+                </div>
+
+                <div class="feature-text">
+                    Kalan paran için bütçe dağılımı oluştur.
+                </div>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    ★
+                </div>
+
+                <div class="feature-title">
+                    Hedef belirle
+                </div>
+
+                <div class="feature-text">
+                    Birikim hedefinin aylık tutarını hesapla.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="section-heading">
+
+            <div class="section-heading-title">
+                Sistem nasıl çalışır?
+            </div>
+
+        </div>
+
+
+        <div class="flow">
+
+            <div class="flow-item">
+
+                <div class="flow-number">
+                    01
+                </div>
+
+                <div>
+                    <div class="flow-title">
+                        Gelir
+                    </div>
+
+                    <div class="flow-text">
+                        Aylık toplam paranı belirle.
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="flow-item">
+
+                <div class="flow-number">
+                    02
+                </div>
+
+                <div>
+                    <div class="flow-title">
+                        Zorunlu giderler
+                    </div>
+
+                    <div class="flow-text">
+                        Kira ve faturalarını ekle.
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="flow-item">
+
+                <div class="flow-number">
+                    03
+                </div>
+
+                <div>
+                    <div class="flow-title">
+                        Değişken giderler
+                    </div>
+
+                    <div class="flow-text">
+                        Günlük harcamalarını planla.
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="flow-item">
+
+                <div class="flow-number">
+                    04
+                </div>
+
+                <div>
+                    <div class="flow-title">
+                        Kalan para + hedef
+                    </div>
+
+                    <div class="flow-text">
+                        Paran için aylık bir plan oluştur.
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer">
+            BütçePilot · Kişisel bütçe planlama uygulaması
+            <br>
+            Yatırım veya finansal ürün tavsiyesi vermez.
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+<!-- =====================================================
+     BÜTÇEPİLOT PRO BUTONU
+     PRO ekranı index.html tarafından doğrudan açılır.
+     ===================================================== -->
+<div id="bpProTopButton" style="
+    position:fixed;
+    top:78px;
+    right:18px;
+    z-index:99999;
+">
+
+    <button
+        type="button"
+        id="bpProOpenButton"
+        style="
+            height:40px;
+            min-width:74px;
+            padding:0 14px;
+            border-radius:22px;
+            border:1px solid #20d5c3;
+            background:#082528;
+            color:#20d5c3;
+            font-size:13px;
+            font-weight:800;
+            letter-spacing:.5px;
+            box-shadow:0 0 14px rgba(32,213,195,.16);
+        "
+    >✦ PRO</button>
+
+</div>
+
+
+
+<!-- BUTCEPILOT_UI_REFRESH_72 -->
+
+<style id="bp72Styles">
+
+#bp72SettingsButton {
+    position:fixed;
+    top:28px;
+    right:20px;
+    z-index:99990;
+    width:46px;
+    height:42px;
+    border-radius:22px;
+    border:1px solid rgba(35,220,205,.42);
+    background:rgba(3,22,24,.94);
+    color:#fff;
+    font-size:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 8px 25px rgba(0,0,0,.25);
+}
+
+#bp72QuickSummary {
+    margin:20px 20px 0;
+    padding:18px;
+    border-radius:20px;
+    border:1px solid rgba(35,220,205,.20);
+    background:linear-gradient(145deg,#071c1e,#031214);
+}
+
+.bp72Title {
+    color:#25d8ca;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:1px;
+    margin-bottom:10px;
+}
+
+.bp72Empty {
+    color:#82999b;
+    font-size:13px;
+    line-height:1.5;
+}
+
+.bp72Cards {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+}
+
+.bp72Card {
+    background:#041719;
+    border:1px solid rgba(35,220,205,.14);
+    border-radius:14px;
+    padding:11px;
+}
+
+.bp72Label {
+    color:#718789;
+    font-size:9px;
+    margin-bottom:5px;
+}
+
+.bp72Value {
+    color:#fff;
+    font-size:14px;
+    font-weight:800;
+}
+
+#bp72SettingsScreen {
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:100000;
+    overflow-y:auto;
+    background:#020f11;
+    color:#fff;
+    padding:22px 18px 40px;
+    box-sizing:border-box;
+}
+
+.bp72SettingsInner {
+    max-width:680px;
+    margin:0 auto;
+}
+
+.bp72Header {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.bp72Back {
+    border:1px solid rgba(35,220,205,.30);
+    background:#061b1d;
+    color:#fff;
+    border-radius:13px;
+    padding:10px 14px;
+    font-weight:700;
+}
+
+.bp72HeaderTitle {
+    color:#25d8ca;
+    font-size:13px;
+    font-weight:800;
+    letter-spacing:1px;
+}
+
+.bp72Hero {
+    border:1px solid rgba(35,220,205,.20);
+    border-radius:22px;
+    padding:21px;
+    background:linear-gradient(145deg,#071c1e,#031214);
+}
+
+.bp72Hero small {
+    color:#25d8ca;
+    font-weight:800;
+    letter-spacing:1px;
+}
+
+.bp72Hero h2 {
+    margin:7px 0;
+    font-size:27px;
+}
+
+.bp72Hero p {
+    margin:0;
+    color:#82999b;
+    font-size:13px;
+}
+
+.bp72Section {
+    color:#25d8ca;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:1px;
+    margin:22px 4px 9px;
+}
+
+.bp72Box {
+    border:1px solid rgba(35,220,205,.16);
+    background:#06191b;
+    border-radius:18px;
+    overflow:hidden;
+}
+
+.bp72Row {
+    width:100%;
+    border:0;
+    border-bottom:1px solid rgba(255,255,255,.055);
+    background:transparent;
+    color:#fff;
+    text-align:left;
+    padding:16px;
+    font-size:14px;
+}
+
+.bp72Row:last-child {
+    border-bottom:0;
+}
+
+.bp72Row strong {
+    display:block;
+    margin-bottom:4px;
+}
+
+.bp72Row span {
+    color:#718789;
+    font-size:11px;
+}
+
+.bp72Status {
+    float:right;
+    color:#25d8ca;
+    border:1px solid rgba(35,220,205,.35);
+    background:#07302f;
+    border-radius:18px;
+    padding:6px 11px;
+    font-size:10px;
+    font-weight:800;
+}
+
+.bp72Danger {
+    color:#ff9b9b !important;
+}
+
+.bp72About {
+    padding:17px;
+    color:#82999b;
+    font-size:12px;
+    line-height:1.7;
+}
+
+@media(max-width:380px) {
+    .bp72Cards {
+        grid-template-columns:1fr;
+    }
+}
+
+</style>
+
+<!-- 7.2 SETTINGS BUTTON -->
+
+<button
+    id="bp72SettingsButton"
+    type="button"
+    aria-label="Ayarlar">
+    ⚙
+</button>
+
+<!-- 7.2 QUICK SUMMARY -->
+
+<div id="bp72QuickSummary">
+
+    <div class="bp72Title">
+        BU AYIN ÖZETİ
+    </div>
+
+    <div id="bp72SummaryEmpty" class="bp72Empty">
+        İlk bütçeni oluşturduğunda gelir, gider ve kalan paran burada görünecek.
+    </div>
+
+    <div
+        id="bp72SummaryCards"
+        class="bp72Cards"
+        style="display:none;">
+
+        <div class="bp72Card">
+            <div class="bp72Label">GELİR</div>
+            <div id="bp72Income" class="bp72Value">0 TL</div>
+        </div>
+
+        <div class="bp72Card">
+            <div class="bp72Label">GİDER</div>
+            <div id="bp72Expense" class="bp72Value">0 TL</div>
+        </div>
+
+        <div class="bp72Card">
+            <div class="bp72Label">KALAN</div>
+            <div id="bp72Available" class="bp72Value">0 TL</div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- 7.2 SETTINGS SCREEN -->
+
+<div id="bp72SettingsScreen">
+
+    <div class="bp72SettingsInner">
+
+        <div class="bp72Header">
+
+            <button
+                id="bp72SettingsBack"
+                class="bp72Back"
+                type="button">
+                ← Geri
+            </button>
+
+            <div class="bp72HeaderTitle">
+                ⚙ AYARLAR
+            </div>
+
+        </div>
+
+        <div class="bp72Hero">
+
+            <small>BÜTÇEPİLOT 7.2</small>
+
+            <h2>Uygulama Ayarları</h2>
+
+            <p>
+                Uygulamanı ve kayıtlı verilerini yönet.
+            </p>
+
+        </div>
+
+        <div class="bp72Section">
+            🎨 GÖRÜNÜM
+        </div>
+
+        <div class="bp72Box">
+
+            <button
+                id="bp72Theme"
+                class="bp72Row"
+                type="button">
+
+                <b class="bp72Status">
+                    AKTİF
+                </b>
+
+                <strong>🌙 Koyu HUD</strong>
+
+                <span>
+                    BütçePilot'un mevcut karanlık arayüzü
+                </span>
+
+            </button>
+
+        </div>
+
+        <div class="bp72Section">
+            🔔 TERCİHLER
+        </div>
+
+        <div class="bp72Box">
+
+            <button
+                id="bp72Warnings"
+                class="bp72Row"
+                type="button">
+
+                <b
+                    id="bp72WarningsStatus"
+                    class="bp72Status">
+                    AÇIK
+                </b>
+
+                <strong>⚠️ Bütçe uyarıları</strong>
+
+                <span>
+                    Bütçe durumuna göre uyarıları göster
+                </span>
+
+            </button>
+
+        </div>
+
+        <div class="bp72Section">
+            💾 VERİ YÖNETİMİ
+        </div>
+
+        <div class="bp72Box">
+
+            <button
+                id="bp72ClearExpenses"
+                class="bp72Row"
+                type="button">
+
+                <strong>💸 Harcama kayıtlarını temizle</strong>
+
+                <span>
+                    Kaydedilmiş harcamaları sil
+                </span>
+
+            </button>
+
+            <button
+                id="bp72ClearGoal"
+                class="bp72Row"
+                type="button">
+
+                <strong>🎯 Hedef birikimini sıfırla</strong>
+
+                <span>
+                    Hedef için biriktirilen tutarı sıfırla
+                </span>
+
+            </button>
+
+            <button
+                id="bp72ClearAll"
+                class="bp72Row"
+                type="button">
+
+                <strong class="bp72Danger">
+                    🗑️ Tüm uygulama verilerini temizle
+                </strong>
+
+                <span>
+                    BütçePilot kayıtlarını temizle
+                </span>
+
+            </button>
+
+        </div>
+
+        <div class="bp72Section">
+            ℹ️ HAKKINDA
+        </div>
+
+        <div class="bp72Box">
+
+            <div class="bp72About">
+
+                <strong>BütçePilot</strong><br>
+
+                Kişisel bütçe planlama uygulaması.<br><br>
+
+                Sürüm: <strong>7.2</strong><br>
+                Arayüz: <strong>HUD Dark</strong><br>
+
+                Durum:
+                <strong style="color:#25d8ca;">
+                    ● AKTİF
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script id="bp72Script">
+(function () {
+
+    "use strict";
+
+    var open =
+        document.getElementById(
+            "bp72SettingsButton"
+        );
+
+    var screen =
+        document.getElementById(
+            "bp72SettingsScreen"
+        );
+
+    var back =
+        document.getElementById(
+            "bp72SettingsBack"
+        );
+
+    if (open && screen) {
+
+        open.addEventListener(
+            "click",
+            function () {
+
+                screen.style.display = "block";
+                document.body.style.overflow = "hidden";
+
+            }
+        );
+
+    }
+
+    if (back && screen) {
+
+        back.addEventListener(
+            "click",
+            function () {
+
+                screen.style.display = "none";
+                document.body.style.overflow = "";
+
+            }
+        );
+
+    }
+
+    var warnings =
+        document.getElementById(
+            "bp72Warnings"
+        );
+
+    var warningStatus =
+        document.getElementById(
+            "bp72WarningsStatus"
+        );
+
+    function renderWarnings() {
+
+        var enabled =
+            localStorage.getItem(
+                "butcepilot_warnings_enabled"
+            ) !== "false";
+
+        if (warningStatus) {
+            warningStatus.textContent =
+                enabled ? "AÇIK" : "KAPALI";
+        }
+
+    }
+
+    renderWarnings();
+
+    if (warnings) {
+
+        warnings.addEventListener(
+            "click",
+            function () {
+
+                var enabled =
+                    localStorage.getItem(
+                        "butcepilot_warnings_enabled"
+                    ) !== "false";
+
+                localStorage.setItem(
+                    "butcepilot_warnings_enabled",
+                    enabled ? "false" : "true"
+                );
+
+                renderWarnings();
+
+            }
+        );
+
+    }
+
+    var clearExpenses =
+        document.getElementById(
+            "bp72ClearExpenses"
+        );
+
+    if (clearExpenses) {
+
+        clearExpenses.addEventListener(
+            "click",
+            function () {
+
+                if (!confirm(
+                    "Harcama kayıtları temizlensin mi?"
+                )) return;
+
+                var keys = [];
+
+                for (
+                    var i = 0;
+                    i < localStorage.length;
+                    i++
+                ) {
+
+                    var key =
+                        localStorage.key(i);
+
+                    if (
+                        key &&
+                        (
+                            key.indexOf("expense") !== -1 ||
+                            key.indexOf("harcama") !== -1
+                        )
+                    ) {
+                        keys.push(key);
+                    }
+
+                }
+
+                keys.forEach(function (key) {
+                    localStorage.removeItem(key);
+                });
+
+                alert(
+                    "Harcama kayıtları temizlendi."
+                );
+
+            }
+        );
+
+    }
+
+    var clearGoal =
+        document.getElementById(
+            "bp72ClearGoal"
+        );
+
+    if (clearGoal) {
+
+        clearGoal.addEventListener(
+            "click",
+            function () {
+
+                if (!confirm(
+                    "Hedef birikimi sıfırlansın mı?"
+                )) return;
+
+                localStorage.removeItem(
+                    "butcepilot_goal_saved"
+                );
+
+                alert(
+                    "Hedef birikimi sıfırlandı."
+                );
+
+            }
+        );
+
+    }
+
+    var clearAll =
+        document.getElementById(
+            "bp72ClearAll"
+        );
+
+    if (clearAll) {
+
+        clearAll.addEventListener(
+            "click",
+            function () {
+
+                if (!confirm(
+                    "Tüm BütçePilot verileri silinsin mi?"
+                )) return;
+
+                localStorage.clear();
+
+                alert(
+                    "BütçePilot verileri temizlendi."
+                );
+
+                location.reload();
+
+            }
+        );
+
+    }
+
+})();
+</script>
+
+
+<!-- BUTCEPILOT_SMART_PANEL_73 -->
+
+<style>
+#bp73Button{
+    position:fixed;
+    top:28px;
+    right:22px;
+    z-index:99999;
+    border:1px solid rgba(45,212,191,.45);
+    background:rgba(8,25,30,.92);
+    color:#5eead4;
+    border-radius:14px;
+    padding:10px 14px;
+    font-size:13px;
+    font-weight:700;
+    box-shadow:0 8px 25px rgba(0,0,0,.25);
+}
+
+#bp73Screen{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:100000;
+    overflow:auto;
+    background:#061014;
+    color:#e6fffb;
+    padding:24px 18px 40px;
+    box-sizing:border-box;
+}
+
+.bp73Wrap{
+    max-width:650px;
+    margin:0 auto;
+}
+
+.bp73Top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:22px;
+}
+
+.bp73Title{
+    font-size:24px;
+    font-weight:800;
+}
+
+.bp73Sub{
+    color:#7aa7a1;
+    font-size:12px;
+    margin-top:4px;
+}
+
+.bp73Close{
+    border:1px solid rgba(255,255,255,.12);
+    background:#102127;
+    color:#d9fffa;
+    border-radius:12px;
+    padding:9px 13px;
+}
+
+.bp73Grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.bp73Card{
+    background:linear-gradient(145deg,#0d2026,#09171c);
+    border:1px solid rgba(94,234,212,.12);
+    border-radius:18px;
+    padding:17px;
+    box-sizing:border-box;
+}
+
+.bp73Wide{
+    grid-column:1 / -1;
+}
+
+.bp73Label{
+    color:#78a59f;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+}
+
+.bp73Value{
+    margin-top:8px;
+    font-size:21px;
+    font-weight:800;
+}
+
+.bp73Text{
+    margin-top:9px;
+    color:#b8d5d1;
+    font-size:13px;
+    line-height:1.55;
+}
+
+.bp73Positive{
+    color:#5eead4;
+}
+
+.bp73Warning{
+    color:#facc15;
+}
+
+.bp73Danger{
+    color:#fb7185;
+}
+
+.bp73Bar{
+    height:9px;
+    margin-top:12px;
+    background:#10262c;
+    border-radius:99px;
+    overflow:hidden;
+}
+
+.bp73BarFill{
+    height:100%;
+    width:0%;
+    background:#2dd4bf;
+    border-radius:99px;
+}
+
+@media(max-width:420px){
+    .bp73Grid{
+        grid-template-columns:1fr;
+    }
+
+    .bp73Wide{
+        grid-column:auto;
+    }
+}
+</style>
+
+<button id="bp73Button" type="button">✦ AKILLI PANEL</button>
+
+<div id="bp73Screen">
+    <div class="bp73Wrap">
+
+        <div class="bp73Top">
+            <div>
+                <div class="bp73Title">BütçePilot</div>
+                <div class="bp73Sub">7.3 • Akıllı Finans Paneli</div>
+            </div>
+            <button id="bp73Close" class="bp73Close" type="button">Kapat</button>
+        </div>
+
+        <div id="bp73Content" class="bp73Grid">
+            <div class="bp73Card">
+                <div class="bp73Label">Toplam Gelir</div>
+                <div id="bp73Income" class="bp73Value">₺0</div>
+            </div>
+
+            <div class="bp73Card">
+                <div class="bp73Label">Toplam Gider</div>
+                <div id="bp73Expense" class="bp73Value">₺0</div>
+            </div>
+
+            <div class="bp73Card">
+                <div class="bp73Label">Kullanılabilir</div>
+                <div id="bp73Available" class="bp73Value bp73Positive">₺0</div>
+            </div>
+
+            <div class="bp73Card">
+                <div class="bp73Label">Günlük Ortalama</div>
+                <div id="bp73Daily" class="bp73Value">₺0</div>
+            </div>
+
+            <div class="bp73Card">
+                <div class="bp73Label">Maaşa Kalan</div>
+                <div id="bp73Days" class="bp73Value">-</div>
+            </div>
+
+            <div class="bp73Card">
+                <div class="bp73Label">En Çok Harcama</div>
+                <div id="bp73TopCategory" class="bp73Value">-</div>
+            </div>
+
+            <div class="bp73Card bp73Wide">
+                <div class="bp73Label">Hedef İlerlemesi</div>
+                <div id="bp73GoalText" class="bp73Text">Henüz bir hedef bulunmuyor.</div>
+                <div class="bp73Bar">
+                    <div id="bp73GoalBar" class="bp73BarFill"></div>
+                </div>
+            </div>
+
+            <div class="bp73Card bp73Wide">
+                <div class="bp73Label">Bütçe Durumu</div>
+                <div id="bp73Status" class="bp73Value">Veri bekleniyor</div>
+                <div id="bp73StatusText" class="bp73Text">
+                    Bütçe verilerini oluşturduğunda burada otomatik analiz görünecek.
+                </div>
+            </div>
+
+            <div class="bp73Card bp73Wide">
+                <div class="bp73Label">BütçePilot Önerisi</div>
+                <div id="bp73Advice" class="bp73Text">
+                    Henüz yeterli veri yok.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+(function(){
+
+    function money(value){
+        value = Number(value) || 0;
+        return "₺" + value.toLocaleString("tr-TR", {
+            maximumFractionDigits:0
+        });
+    }
+
+    function readJSON(keys){
+        for(var i=0;i<keys.length;i++){
+            try{
+                var raw = localStorage.getItem(keys[i]);
+                if(raw){
+                    return JSON.parse(raw);
+                }
+            }catch(e){}
+        }
+        return null;
+    }
+
+    function findHistory(){
+        return readJSON([
+            "butcepilot_budget_history",
+            "budget_history",
+            "butcepilot_history"
+        ]);
+    }
+
+    function findExpenses(){
+        return readJSON([
+            "butcepilot_expenses",
+            "expenses",
+            "butcepilot_expense_data"
+        ]);
+    }
+
+    function findGoalSaved(){
+        try{
+            return Number(
+                localStorage.getItem("butcepilot_goal_saved")
+            ) || 0;
+        }catch(e){
+            return 0;
+        }
+    }
+
+    function latestHistory(){
+
+        var history = findHistory();
+
+        if(!Array.isArray(history) || !history.length){
+            return null;
+        }
+
+        return history[history.length - 1];
+    }
+
+    function refresh(){
+
+        var record = latestHistory();
+
+        if(!record){
+
+            document.getElementById("bp73Status").textContent =
+                "Veri bekleniyor";
+
+            document.getElementById("bp73StatusText").textContent =
+                "Önce bir bütçe oluştur. BütçePilot verilerini burada otomatik gösterecek.";
+
+            return;
+        }
+
+        var income = Number(
+            record.income != null ? record.income :
+            record.totalIncome
+        ) || 0;
+
+        var expenses = Number(
+            record.expenses != null ? record.expenses :
+            record.totalExpenses
+        ) || 0;
+
+        var available = Number(
+            record.afterGoal != null ? record.afterGoal :
+            record.available
+        ) || 0;
+
+        document.getElementById("bp73Income").textContent =
+            money(income);
+
+        document.getElementById("bp73Expense").textContent =
+            money(expenses);
+
+        document.getElementById("bp73Available").textContent =
+            money(Math.max(0,available));
+
+        var days = Number(
+            record.daysUntilSalary ||
+            record.daysUntilMonthEnd ||
+            0
+        );
+
+        if(days > 0){
+            document.getElementById("bp73Days").textContent =
+                days + " gün";
+
+            document.getElementById("bp73Daily").textContent =
+                money(Math.max(0,available) / days);
+        }
+
+        var ratio = income > 0 ? expenses / income : 0;
+
+        var status = document.getElementById("bp73Status");
+        var statusText = document.getElementById("bp73StatusText");
+        var advice = document.getElementById("bp73Advice");
+
+        if(available < 0){
+
+            status.textContent = "Dikkat";
+            status.className = "bp73Value bp73Danger";
+
+            statusText.textContent =
+                "Giderlerin gelirlerini aşmış görünüyor.";
+
+            advice.textContent =
+                "Öncelikle zorunlu giderleri koru ve ertelenebilir harcamaları azalt.";
+        }
+        else if(ratio >= 0.8){
+
+            status.textContent = "Kontrollü Ol";
+            status.className = "bp73Value bp73Warning";
+
+            statusText.textContent =
+                "Gelirin büyük bölümü giderlere ayrılmış durumda.";
+
+            advice.textContent =
+                "Değişken giderlerini takip ederek kullanılabilir paranı korumaya çalış.";
+        }
+        else if(ratio >= 0.6){
+
+            status.textContent = "Dengeli";
+            status.className = "bp73Value bp73Positive";
+
+            statusText.textContent =
+                "Bütçen genel olarak dengeli görünüyor.";
+
+            advice.textContent =
+                "Harcamalarını takip etmeye devam et ve hedef birikimini düzenli tut.";
+        }
+        else{
+
+            status.textContent = "Rahat Alan";
+            status.className = "bp73Value bp73Positive";
+
+            statusText.textContent =
+                "Gelirinin önemli bir bölümü giderlerden sonra kullanılabilir durumda.";
+
+            advice.textContent =
+                "Kullanılabilir paranının bir bölümünü birikim veya hedeflerine ayırabilirsin.";
+        }
+
+        var expensesData = findExpenses();
+
+        if(Array.isArray(expensesData) && expensesData.length){
+
+            var totals = {};
+
+            expensesData.forEach(function(item){
+
+                var category =
+                    item.category ||
+                    item.type ||
+                    "Diğer";
+
+                var amount =
+                    Number(item.amount) || 0;
+
+                totals[category] =
+                    (totals[category] || 0) + amount;
+            });
+
+            var top = null;
+            var topAmount = 0;
+
+            Object.keys(totals).forEach(function(category){
+
+                if(totals[category] > topAmount){
+                    top = category;
+                    topAmount = totals[category];
+                }
+            });
+
+            if(top){
+                document.getElementById("bp73TopCategory").textContent =
+                    top + " • " + money(topAmount);
+            }
+        }
+
+        var goalAmount = Number(record.monthlyGoal) || 0;
+        var saved = findGoalSaved();
+
+        if(goalAmount > 0){
+
+            var progress =
+                Math.min(100,(saved / goalAmount) * 100);
+
+            document.getElementById("bp73GoalText").textContent =
+                money(saved) + " / " + money(goalAmount) +
+                " • %" + Math.round(progress);
+
+            document.getElementById("bp73GoalBar").style.width =
+                progress + "%";
+        }
+    }
+
+    document.getElementById("bp73Button")
+        .addEventListener("click",function(){
+
+            document.getElementById("bp73Screen").style.display =
+                "block";
+
+            document.body.style.overflow = "hidden";
+
+            refresh();
+        });
+
+    document.getElementById("bp73Close")
+        .addEventListener("click",function(){
+
+            document.getElementById("bp73Screen").style.display =
+                "none";
+
+            document.body.style.overflow = "";
+        });
+
+})();
+</script>
+
+<!-- BUTCEPILOT_SMART_PANEL_73 -->
+
+
+<!-- BUTCEPILOT_DATA_ANALYSIS_74 -->
+
+<style>
+
+#bp74Tab{
+    position:fixed;
+    left:50%;
+    bottom:14px;
+    transform:translateX(-50%);
+    z-index:99998;
+
+    border:1px solid rgba(45,212,191,.35);
+    background:rgba(7,22,27,.96);
+    color:#5eead4;
+
+    border-radius:16px;
+    padding:11px 18px;
+
+    font-size:13px;
+    font-weight:800;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.35);
+}
+
+#bp74Screen{
+    display:none;
+
+    position:fixed;
+    inset:0;
+
+    z-index:100001;
+
+    overflow:auto;
+
+    background:#061014;
+    color:#e6fffb;
+
+    padding:24px 16px 100px;
+
+    box-sizing:border-box;
+}
+
+.bp74Wrap{
+    max-width:700px;
+    margin:0 auto;
+}
+
+.bp74Header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-bottom:22px;
+}
+
+.bp74Title{
+    font-size:24px;
+    font-weight:900;
+}
+
+.bp74Sub{
+    margin-top:4px;
+    color:#729b95;
+    font-size:12px;
+}
+
+.bp74Close{
+    border:1px solid rgba(255,255,255,.12);
+    background:#102127;
+    color:#d9fffa;
+
+    border-radius:12px;
+    padding:9px 13px;
+}
+
+.bp74Summary{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+
+    margin-bottom:18px;
+}
+
+.bp74Card{
+    background:linear-gradient(145deg,#0d2026,#09171c);
+
+    border:1px solid rgba(94,234,212,.12);
+
+    border-radius:18px;
+
+    padding:17px;
+
+    box-sizing:border-box;
+}
+
+.bp74Label{
+    color:#759e98;
+    font-size:10px;
+    font-weight:800;
+
+    letter-spacing:.5px;
+}
+
+.bp74Value{
+    margin-top:7px;
+
+    font-size:21px;
+    font-weight:900;
+}
+
+.bp74ChartCard{
+    background:linear-gradient(145deg,#0d2026,#09171c);
+
+    border:1px solid rgba(94,234,212,.12);
+
+    border-radius:20px;
+
+    padding:18px;
+
+    margin-bottom:18px;
+}
+
+.bp74SectionTitle{
+    font-size:16px;
+    font-weight:900;
+
+    margin-bottom:16px;
+}
+
+.bp74Chart{
+    display:flex;
+    align-items:flex-end;
+
+    gap:10px;
+
+    height:190px;
+
+    overflow-x:auto;
+
+    padding:12px 4px 0;
+}
+
+.bp74BarItem{
+    min-width:58px;
+    height:100%;
+
+    display:flex;
+    flex-direction:column;
+
+    justify-content:flex-end;
+    align-items:center;
+
+    gap:7px;
+}
+
+.bp74Bar{
+    width:34px;
+    min-height:4px;
+
+    border-radius:9px 9px 4px 4px;
+
+    background:#2dd4bf;
+
+    box-shadow:0 5px 18px rgba(45,212,191,.15);
+}
+
+.bp74BarAmount{
+    font-size:9px;
+    color:#b8d5d1;
+
+    white-space:nowrap;
+}
+
+.bp74Month{
+    font-size:10px;
+    color:#7fa7a1;
+
+    white-space:nowrap;
+}
+
+.bp74Table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.bp74Table th{
+    text-align:left;
+
+    color:#6f9993;
+
+    font-size:10px;
+
+    padding:11px 7px;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.bp74Table td{
+    padding:13px 7px;
+
+    font-size:12px;
+
+    border-bottom:1px solid rgba(255,255,255,.055);
+}
+
+.bp74Money{
+    text-align:right;
+
+    font-weight:800;
+
+    color:#5eead4;
+}
+
+.bp74ChangeUp{
+    color:#fb7185;
+}
+
+.bp74ChangeDown{
+    color:#5eead4;
+}
+
+.bp74Empty{
+    text-align:center;
+
+    padding:35px 15px;
+
+    color:#759e98;
+
+    font-size:13px;
+
+    line-height:1.6;
+}
+
+@media(max-width:420px){
+
+    .bp74Summary{
+        grid-template-columns:1fr;
+    }
+
+    .bp74Chart{
+        height:170px;
+    }
+}
+
+</style>
+
+
+<button id="bp74Tab" type="button">
+    📊 Veri Analizi
+</button>
+
+
+<div id="bp74Screen">
+
+    <div class="bp74Wrap">
+
+        <div class="bp74Header">
+
+            <div>
+                <div class="bp74Title">
+                    Veri Analizi
+                </div>
+
+                <div class="bp74Sub">
+                    BütçePilot 7.4 • Aylık harcama analizi
+                </div>
+            </div>
+
+            <button id="bp74Close"
+                    class="bp74Close"
+                    type="button">
+                Kapat
+            </button>
+
+        </div>
+
+
+        <div class="bp74Summary">
+
+            <div class="bp74Card">
+
+                <div class="bp74Label">
+                    TOPLAM HARCAMA
+                </div>
+
+                <div id="bp74Total"
+                     class="bp74Value">
+                    ₺0
+                </div>
+
+            </div>
+
+
+            <div class="bp74Card">
+
+                <div class="bp74Label">
+                    AYLIK ORTALAMA
+                </div>
+
+                <div id="bp74Average"
+                     class="bp74Value">
+                    ₺0
+                </div>
+
+            </div>
+
+
+            <div class="bp74Card">
+
+                <div class="bp74Label">
+                    EN YÜKSEK AY
+                </div>
+
+                <div id="bp74Highest"
+                     class="bp74Value">
+                    -
+                </div>
+
+            </div>
+
+
+            <div class="bp74Card">
+
+                <div class="bp74Label">
+                    KAYITLI AY
+                </div>
+
+                <div id="bp74MonthCount"
+                     class="bp74Value">
+                    0
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="bp74ChartCard">
+
+            <div class="bp74SectionTitle">
+                📈 Aylık Harcama Grafiği
+            </div>
+
+            <div id="bp74Chart"
+                 class="bp74Chart">
+            </div>
+
+        </div>
+
+
+        <div class="bp74ChartCard">
+
+            <div class="bp74SectionTitle">
+                📅 Aylık Harcama Tablosu
+            </div>
+
+            <div id="bp74TableArea">
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+(function(){
+
+    function money(value){
+
+        value = Number(value) || 0;
+
+        return "₺" + value.toLocaleString("tr-TR",{
+            maximumFractionDigits:0
+        });
+    }
+
+
+    function monthName(month){
+
+        var names = [
+            "Ocak",
+            "Şubat",
+            "Mart",
+            "Nisan",
+            "Mayıs",
+            "Haziran",
+            "Temmuz",
+            "Ağustos",
+            "Eylül",
+            "Ekim",
+            "Kasım",
+            "Aralık"
+        ];
+
+        return names[month] || "-";
+    }
+
+
+    function readJSON(key){
+
+        try{
+
+            var raw = localStorage.getItem(key);
+
+            if(raw){
+                return JSON.parse(raw);
+            }
+
+        }catch(e){}
+
+        return null;
+    }
+
+
+    function findHistory(){
+
+        var preferred = [
+            "butcepilot_budget_history",
+            "budget_history",
+            "butcepilot_history"
+        ];
+
+        for(var i=0;i<preferred.length;i++){
+
+            var data = readJSON(preferred[i]);
+
+            if(Array.isArray(data) && data.length){
+                return data;
+            }
+
+        }
+
+
+        /*
+         * Eğer anahtar farklıysa,
+         * içinde history geçen kayıtları da tara.
+         */
+
+        var result = [];
+
+        try{
+
+            for(var i=0;i<localStorage.length;i++){
+
+                var key = localStorage.key(i);
+
+                if(
+                    key &&
+                    key.toLowerCase().indexOf("history") !== -1
+                ){
+
+                    var data = readJSON(key);
+
+                    if(Array.isArray(data)){
+                        result = result.concat(data);
+                    }
+
+                }
+
+            }
+
+        }catch(e){}
+
+        return result;
+    }
+
+
+    function getDate(item){
+
+        /*
+         * BütçePilot geçmiş sistemi tarihi
+         * "month" alanında YYYY-MM olarak tutuyor.
+         * Örnek: 2026-10
+         */
+
+        if(item && item.month){
+
+            var monthText = String(item.month);
+
+            var match = monthText.match(
+                /^(\d{4})-(\d{1,2})$/
+            );
+
+            if(match){
+
+                var year = Number(match[1]);
+                var month = Number(match[2]) - 1;
+
+                if(
+                    year > 2000 &&
+                    month >= 0 &&
+                    month <= 11
+                ){
+
+                    return new Date(
+                        year,
+                        month,
+                        1
+                    );
+                }
+            }
+        }
+
+        /*
+         * Gelecekte başka tarih alanları kullanılırsa
+         * onları da desteklemeye devam et.
+         */
+
+        var candidates = [
+            item && item.date,
+            item && item.createdAt,
+            item && item.timestamp,
+            item && item.time,
+            item && item.created,
+            item && item.monthDate
+        ];
+
+        for(var i=0;i<candidates.length;i++){
+
+            if(candidates[i]){
+
+                var date = new Date(candidates[i]);
+
+                if(!isNaN(date.getTime())){
+                    return date;
+                }
+            }
+        }
+
+        return null;
+    }
+
+
+    function getExpense(item){
+
+        return Number(
+            item.expenses != null
+                ? item.expenses
+                : item.totalExpenses != null
+                    ? item.totalExpenses
+                    : item.totalExpense != null
+                        ? item.totalExpense
+                        : 0
+        ) || 0;
+    }
+
+
+    function buildMonthlyData(){
+
+        var history = findHistory();
+
+        var months = {};
+
+        if(!Array.isArray(history)){
+            return [];
+        }
+
+
+        history.forEach(function(item){
+
+            if(!item || typeof item !== "object"){
+                return;
+            }
+
+            var date = getDate(item);
+
+            if(!date){
+                return;
+            }
+
+            var year = date.getFullYear();
+            var month = date.getMonth();
+
+            var key = year + "-" +
+                String(month + 1).padStart(2,"0");
+
+
+            if(!months[key]){
+
+                months[key] = {
+                    year:year,
+                    month:month,
+                    expenses:0
+                };
+
+            }
+
+
+            months[key].expenses += getExpense(item);
+
+        });
+
+
+        return Object.keys(months)
+            .sort()
+            .map(function(key){
+
+                return {
+                    key:key,
+                    year:months[key].year,
+                    month:months[key].month,
+                    expenses:months[key].expenses
+                };
+
+            });
+
+    }
+
+
+    function render(){
+
+        var data = buildMonthlyData();
+
+
+        if(!data.length){
+
+            document.getElementById("bp74Chart").innerHTML =
+                '<div class="bp74Empty">' +
+                'Henüz aylık analiz verisi bulunmuyor.<br><br>' +
+                'Bütçe oluşturdukça Ekim, Kasım, Aralık gibi ' +
+                'aylık harcamaların burada otomatik görünecek.' +
+                '</div>';
+
+            document.getElementById("bp74TableArea").innerHTML =
+                '<div class="bp74Empty">' +
+                'Aylık harcama tablosu için en az bir bütçe kaydı gerekiyor.' +
+                '</div>';
+
+            return;
+        }
+
+
+        var total = 0;
+        var highest = data[0];
+
+
+        data.forEach(function(item){
+
+            total += item.expenses;
+
+            if(item.expenses > highest.expenses){
+                highest = item;
+            }
+
+        });
+
+
+        var average = total / data.length;
+
+
+        document.getElementById("bp74Total").textContent =
+            money(total);
+
+
+        document.getElementById("bp74Average").textContent =
+            money(average);
+
+
+        document.getElementById("bp74Highest").textContent =
+            monthName(highest.month) +
+            " • " +
+            money(highest.expenses);
+
+
+        document.getElementById("bp74MonthCount").textContent =
+            data.length + " ay";
+
+
+        /*
+         * GRAFİK
+         */
+
+        var max = Math.max.apply(
+            null,
+            data.map(function(item){
+                return item.expenses;
+            })
+        );
+
+        max = Math.max(max,1);
+
+
+        var chartHTML = "";
+
+
+        data.forEach(function(item){
+
+            var height =
+                Math.max(
+                    5,
+                    (item.expenses / max) * 130
+                );
+
+
+            chartHTML +=
+
+                '<div class="bp74BarItem">' +
+
+                    '<div class="bp74BarAmount">' +
+                        money(item.expenses) +
+                    '</div>' +
+
+                    '<div class="bp74Bar" ' +
+                        'style="height:' +
+                        height +
+                        'px"></div>' +
+
+                    '<div class="bp74Month">' +
+                        monthName(item.month) +
+                    '</div>' +
+
+                '</div>';
+
+        });
+
+
+        document.getElementById("bp74Chart").innerHTML =
+            chartHTML;
+
+
+        /*
+         * TABLO
+         */
+
+        var tableHTML =
+            '<table class="bp74Table">' +
+
+                '<thead>' +
+
+                    '<tr>' +
+
+                        '<th>AY</th>' +
+                        '<th>HARCAMA</th>' +
+                        '<th>ÖNCEKİ AYA GÖRE</th>' +
+
+                    '</tr>' +
+
+                '</thead>' +
+
+                '<tbody>';
+
+
+        data.forEach(function(item,index){
+
+            var changeHTML = "-";
+
+
+            if(index > 0){
+
+                var previous =
+                    data[index - 1].expenses;
+
+                if(previous > 0){
+
+                    var percent =
+                        ((item.expenses - previous) /
+                        previous) * 100;
+
+
+                    if(percent > 0){
+
+                        changeHTML =
+                            '<span class="bp74ChangeUp">' +
+                            '+' +
+                            Math.round(percent) +
+                            '% ↑' +
+                            '</span>';
+
+                    }
+                    else if(percent < 0){
+
+                        changeHTML =
+                            '<span class="bp74ChangeDown">' +
+                            Math.round(percent) +
+                            '% ↓' +
+                            '</span>';
+
+                    }
+                    else{
+
+                        changeHTML = "0%";
+
+                    }
+
+                }
+
+            }
+
+
+            tableHTML +=
+
+                '<tr>' +
+
+                    '<td>' +
+                        monthName(item.month) +
+                        ' ' +
+                        item.year +
+                    '</td>' +
+
+                    '<td class="bp74Money">' +
+                        money(item.expenses) +
+                    '</td>' +
+
+                    '<td>' +
+                        changeHTML +
+                    '</td>' +
+
+                '</tr>';
+
+        });
+
+
+        tableHTML +=
+                '</tbody>' +
+            '</table>';
+
+
+        document.getElementById("bp74TableArea").innerHTML =
+            tableHTML;
+
+    }
+
+
+    document.getElementById("bp74Tab")
+        .addEventListener("click",function(){
+
+            document.getElementById("bp74Screen")
+                .style.display = "block";
+
+            document.body.style.overflow = "hidden";
+
+            render();
+
+        });
+
+
+    document.getElementById("bp74Close")
+        .addEventListener("click",function(){
+
+            document.getElementById("bp74Screen")
+                .style.display = "none";
+
+            document.body.style.overflow = "";
+
+        });
+
+
+})();
+
+</script>
+
+<!-- BUTCEPILOT_DATA_ANALYSIS_74 -->
+
+<script src="js/app.js"></script>
+
+<!-- =====================================================
+     BÜTÇEPİLOT PRO EKRANI
+     ===================================================== -->
+<div
+    id="bpProScreen"
+    style="
+        display:none;
+        position:fixed;
+        inset:0;
+        z-index:100000;
+        overflow-y:auto;
+        box-sizing:border-box;
+        padding:28px 20px 40px;
+        background:#02080a;
+        color:#ffffff;
+        font-family:Arial,sans-serif;
+    "
+>
+
+    <div style="
+        max-width:760px;
+        margin:0 auto;
+    ">
+
+        <!-- ÜST BAR -->
+        <div style="
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            margin-bottom:28px;
+        ">
+
+            <button
+                id="bpProBackButton"
+                type="button"
+                style="
+                    border:1px solid #16383b;
+                    background:#071619;
+                    color:#ffffff;
+                    border-radius:14px;
+                    padding:11px 15px;
+                    font-size:14px;
+                    font-weight:700;
+                "
+            >← Ana Menü</button>
+
+            <div style="
+                padding:9px 13px;
+                border-radius:20px;
+                border:1px solid #20d5c3;
+                color:#20d5c3;
+                font-size:12px;
+                font-weight:800;
+            ">✦ PRO</div>
+
+        </div>
+
+        <!-- BAŞLIK -->
+        <div style="
+            padding:24px;
+            border:1px solid #124044;
+            border-radius:24px;
+            background:linear-gradient(145deg,#071b1e,#061113);
+            margin-bottom:18px;
+        ">
+
+            <div style="
+                color:#20d5c3;
+                font-size:12px;
+                font-weight:800;
+                letter-spacing:1.4px;
+                margin-bottom:10px;
+            ">BÜTÇEPİLOT PRO</div>
+
+            <div style="
+                font-size:29px;
+                font-weight:900;
+                line-height:1.15;
+                margin-bottom:10px;
+            ">Bütçeni daha detaylı yönet.</div>
+
+            <div style="
+                color:#91a5a7;
+                font-size:14px;
+                line-height:1.6;
+            ">
+                Bütçendeki değişimleri, hedeflerini ve harcamalarını
+                daha ayrıntılı takip etmek için gelişmiş araçlar.
+            </div>
+
+        </div>
+
+        <!-- ÖZELLİKLER -->
+        <div style="
+            display:grid;
+            grid-template-columns:1fr;
+            gap:12px;
+        ">
+
+            <div style="
+                padding:20px;
+                border:1px solid #12383b;
+                border-radius:20px;
+                background:#071518;
+            ">
+                <div style="font-size:24px;margin-bottom:10px;">📊</div>
+                <div style="
+                    font-size:17px;
+                    font-weight:800;
+                    margin-bottom:7px;
+                ">Gelişmiş Bütçe Analizi</div>
+                <div style="
+                    color:#8da2a4;
+                    font-size:13px;
+                    line-height:1.5;
+                ">
+                    Gelir, sabit gider, değişken gider ve kalan para
+                    üzerinden daha ayrıntılı bütçe analizi.
+                </div>
+            </div>
+
+            <div style="
+                padding:20px;
+                border:1px solid #12383b;
+                border-radius:20px;
+                background:#071518;
+            ">
+                <div style="font-size:24px;margin-bottom:10px;">📅</div>
+                <div style="
+                    font-size:17px;
+                    font-weight:800;
+                    margin-bottom:7px;
+                ">Aylık Karşılaştırmalar</div>
+                <div style="
+                    color:#8da2a4;
+                    font-size:13px;
+                    line-height:1.5;
+                ">
+                    Önceki bütçelerinle mevcut bütçeni karşılaştırarak
+                    gelir ve gider değişimlerini takip et.
+                </div>
+            </div>
+
+            <div style="
+                padding:20px;
+                border:1px solid #12383b;
+                border-radius:20px;
+                background:#071518;
+            ">
+                <div style="font-size:24px;margin-bottom:10px;">🎯</div>
+                <div style="
+                    font-size:17px;
+                    font-weight:800;
+                    margin-bottom:7px;
+                ">Gelişmiş Hedef Takibi</div>
+                <div style="
+                    color:#8da2a4;
+                    font-size:13px;
+                    line-height:1.5;
+                ">
+                    Birikim hedefinin ilerlemesini, kalan tutarı ve
+                    hedefe ulaşmak için gereken aylık miktarı takip et.
+                </div>
+            </div>
+
+            <div style="
+                padding:20px;
+                border:1px solid #12383b;
+                border-radius:20px;
+                background:#071518;
+            ">
+                <div style="font-size:24px;margin-bottom:10px;">💸</div>
+                <div style="
+                    font-size:17px;
+                    font-weight:800;
+                    margin-bottom:7px;
+                ">Detaylı Harcama Analizi</div>
+                <div style="
+                    color:#8da2a4;
+                    font-size:13px;
+                    line-height:1.5;
+                ">
+                    Harcamalarını kategorilere ayır ve paranı hangi
+                    alanlarda kullandığını daha kolay takip et.
+                </div>
+            </div>
+
+            <div style="
+                padding:20px;
+                border:1px solid #12383b;
+                border-radius:20px;
+                background:#071518;
+            ">
+                <div style="font-size:24px;margin-bottom:10px;">⚠️</div>
+                <div style="
+                    font-size:17px;
+                    font-weight:800;
+                    margin-bottom:7px;
+                ">Akıllı Bütçe Uyarıları</div>
+                <div style="
+                    color:#8da2a4;
+                    font-size:13px;
+                    line-height:1.5;
+                ">
+                    Bütçenin planından sapmaya başladığında
+                    önemli durumları daha kolay fark et.
+                </div>
+            </div>
+
+        </div>
+
+        <!-- PRO DURUM -->
+        <div style="
+            margin-top:18px;
+            padding:18px;
+            border-radius:18px;
+            border:1px solid #173d40;
+            background:#061214;
+            text-align:center;
+        ">
+
+            <div style="
+                color:#20d5c3;
+                font-size:13px;
+                font-weight:800;
+                margin-bottom:6px;
+            ">BÜTÇEPİLOT PRO</div>
+
+            <div style="
+                color:#91a5a7;
+                font-size:12px;
+                line-height:1.5;
+            ">
+                Pro özellikleri şu anda geliştirme aşamasındadır.
+                Gerçek ödeme sistemi daha sonraki aşamada eklenecektir.
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+(function () {
+
+    var proButton = document.getElementById("bpProOpenButton");
+    var proScreen = document.getElementById("bpProScreen");
+    var backButton = document.getElementById("bpProBackButton");
+
+    if (proButton && proScreen) {
+
+        proButton.addEventListener("click", function () {
+
+            proScreen.style.display = "block";
+            document.body.style.overflow = "hidden";
+
+        });
+
+    }
+
+    if (backButton && proScreen) {
+
+        backButton.addEventListener("click", function () {
+
+            proScreen.style.display = "none";
+            document.body.style.overflow = "";
+
+        });
+
+    }
+
+})();
+</script>
+
+
+<script>
+(function () {
+
+    "use strict";
+
+    function proMoney(value) {
+
+        var n = Number(value);
+
+        if (!isFinite(n)) {
+            n = 0;
+        }
+
+        return n.toLocaleString("tr-TR", {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2
+        }) + " TL";
+    }
+
+    function proNumber(value) {
+
+        var n = Number(value);
+
+        return isFinite(n) ? n : 0;
+    }
+
+    function proEsc(value) {
+
+        return String(value == null ? "" : value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    function proBox(title, value) {
+
+        return `
+            <div style="
+                padding:14px;
+                border-radius:15px;
+                background:#061214;
+                border:1px solid #123336;
+            ">
+                <div style="
+                    color:#71878a;
+                    font-size:10px;
+                    margin-bottom:5px;
+                ">${proEsc(title)}</div>
+
+                <div style="
+                    color:#ffffff;
+                    font-size:16px;
+                    font-weight:800;
+                ">${proEsc(value)}</div>
+            </div>
+        `;
+    }
+
+    function proEmpty(text) {
+
+        return `
+            <div style="
+                padding:15px;
+                border-radius:15px;
+                background:#061214;
+                border:1px solid #123336;
+                color:#829698;
+                font-size:12px;
+                line-height:1.55;
+            ">${proEsc(text)}</div>
+        `;
+    }
+
+    /*
+     * LocalStorage'daki tüm JSON kayıtlarını okuyoruz.
+     * Böylece mevcut Free sisteminin kullandığı anahtar
+     * isimlerine körü körüne bağlı kalmıyoruz.
+     */
+    function readStorage() {
+
+        var data = [];
+
+        for (var i = 0; i < localStorage.length; i++) {
+
+            var key = localStorage.key(i);
+
+            if (!key) {
+                continue;
+            }
+
+            var raw = localStorage.getItem(key);
+
+            if (!raw) {
+                continue;
+            }
+
+            try {
+
+                data.push({
+                    key: key,
+                    value: JSON.parse(raw)
+                });
+
+            } catch (e) {
+
+                /* JSON olmayan kayıtları geç */
+            }
+        }
+
+        return data;
+    }
+
+    function numberFrom(obj, names) {
+
+        if (!obj || typeof obj !== "object") {
+            return 0;
+        }
+
+        for (var i = 0; i < names.length; i++) {
+
+            var value = Number(obj[names[i]]);
+
+            if (isFinite(value)) {
+                return value;
+            }
+        }
+
+        return 0;
+    }
+
+    /*
+     * Bütçe geçmişini mevcut kayıtlar arasından bul.
+     */
+    function findHistory(storage) {
+
+        var best = [];
+
+        for (var i = 0; i < storage.length; i++) {
+
+            var value = storage[i].value;
+
+            if (!Array.isArray(value) || !value.length) {
+                continue;
+            }
+
+            var score = 0;
+
+            for (var j = 0; j < value.length; j++) {
+
+                var row = value[j];
+
+                if (!row || typeof row !== "object") {
+                    continue;
+                }
+
+                if (
+                    "income" in row ||
+                    "expenses" in row ||
+                    "available" in row
+                ) {
+                    score += 3;
+                }
+            }
+
+            if (score > 0 && (
+                best.length === 0 ||
+                score > best.score
+            )) {
+
+                best = value;
+                best.score = score;
+            }
+        }
+
+        return Array.isArray(best) ? best : [];
+    }
+
+    /*
+     * Harcamaları bul.
+     */
+    function findExpenses(storage) {
+
+        var best = [];
+        var bestScore = 0;
+
+        for (var i = 0; i < storage.length; i++) {
+
+            var value = storage[i].value;
+
+            if (!Array.isArray(value) || !value.length) {
+                continue;
+            }
+
+            var score = 0;
+
+            for (var j = 0; j < value.length; j++) {
+
+                var row = value[j];
+
+                if (!row || typeof row !== "object") {
+                    continue;
+                }
+
+                if ("amount" in row) {
+                    score += 3;
+                }
+
+                if ("category" in row) {
+                    score += 2;
+                }
+            }
+
+            if (score > bestScore) {
+
+                bestScore = score;
+                best = value;
+            }
+        }
+
+        return best;
+    }
+
+    /*
+     * Hedef bilgisini bul.
+     */
+    function findGoal(storage) {
+
+        var target = 0;
+        var saved = 0;
+
+        for (var i = 0; i < storage.length; i++) {
+
+            var key = String(storage[i].key).toLowerCase();
+            var value = storage[i].value;
+
+            if (
+                key.indexOf("goal") === -1 &&
+                key.indexOf("hedef") === -1
+            ) {
+                continue;
+            }
+
+            if (typeof value === "number") {
+
+                saved = Math.max(
+                    saved,
+                    proNumber(value)
+                );
+
+                continue;
+            }
+
+            if (!value || typeof value !== "object") {
+                continue;
+            }
+
+            target = Math.max(
+                target,
+                numberFrom(
+                    value,
+                    ["amount", "target", "goalAmount"]
+                )
+            );
+
+            saved = Math.max(
+                saved,
+                numberFrom(
+                    value,
+                    ["saved", "savedAmount", "goalSaved"]
+                )
+            );
+        }
+
+        return {
+            target: target,
+            saved: saved
+        };
+    }
+
+    /*
+     * PRO ekranını oluştur.
+     */
+    function buildDashboard() {
+
+        var screen =
+            document.getElementById("bpProScreen");
+
+        if (!screen) {
+            return;
+        }
+
+        screen.innerHTML = `
+            <div style="
+                max-width:760px;
+                margin:0 auto;
+            ">
+
+                <div style="
+                    display:flex;
+                    align-items:center;
+                    justify-content:space-between;
+                    margin-bottom:20px;
+                ">
+
+                    <button
+                        id="proDashboardBack"
+                        type="button"
+                        style="
+                            border:1px solid #173b3e;
+                            background:#071619;
+                            color:#ffffff;
+                            border-radius:14px;
+                            padding:10px 14px;
+                            font-size:14px;
+                            font-weight:700;
+                        "
+                    >← Ana Menü</button>
+
+                    <div style="
+                        padding:8px 13px;
+                        border-radius:20px;
+                        border:1px solid #20d5c3;
+                        color:#20d5c3;
+                        font-size:12px;
+                        font-weight:800;
+                    ">✦ PRO</div>
+
+                </div>
+
+                <div style="
+                    padding:23px;
+                    border:1px solid #124044;
+                    border-radius:23px;
+                    background:linear-gradient(
+                        145deg,
+                        #071b1e,
+                        #061113
+                    );
+                    margin-bottom:14px;
+                ">
+
+                    <div style="
+                        color:#20d5c3;
+                        font-size:11px;
+                        font-weight:800;
+                        letter-spacing:1.5px;
+                        margin-bottom:8px;
+                    ">BÜTÇEPİLOT PRO</div>
+
+                    <div style="
+                        font-size:27px;
+                        font-weight:900;
+                        margin-bottom:8px;
+                    ">Gelişmiş bütçe merkezi</div>
+
+                    <div style="
+                        color:#8da2a4;
+                        font-size:13px;
+                        line-height:1.55;
+                    ">
+                        Bütçeni, hedeflerini ve harcamalarını
+                        daha ayrıntılı takip et.
+                    </div>
+
+                </div>
+
+                <div id="proAnalysis"></div>
+                <div id="proHistory"></div>
+                <div id="proGoal"></div>
+                <div id="proExpenses"></div>
+                <div id="proWarnings"></div>
+
+            </div>
+        `;
+
+        var back =
+            document.getElementById("proDashboardBack");
+
+        if (back) {
+
+            back.onclick = function () {
+
+                screen.style.display = "none";
+                document.body.style.overflow = "";
+
+            };
+        }
+
+        renderData();
+    }
+
+    function renderData() {
+
+        var storage = readStorage();
+
+        var history = findHistory(storage);
+        var expenses = findExpenses(storage);
+        var goal = findGoal(storage);
+
+        renderAnalysis(history);
+        renderHistory(history);
+        renderGoal(goal);
+        renderExpenses(expenses);
+        renderWarnings(history, expenses, goal);
+    }
+
+    function section(title, content) {
+
+        return `
+            <div style="
+                margin-bottom:14px;
+                padding:19px;
+                border:1px solid #12383b;
+                border-radius:20px;
+                background:#071518;
+            ">
+
+                <div style="
+                    color:#20d5c3;
+                    font-size:10px;
+                    font-weight:800;
+                    letter-spacing:1px;
+                    margin-bottom:7px;
+                ">${proEsc(title)}</div>
+
+                ${content}
+
+            </div>
+        `;
+    }
+
+    
+function renderAnalysis(history) {
+
+    var el =
+        document.getElementById("proAnalysis");
+
+    if (!el) {
+        return;
+    }
+
+    if (!history.length) {
+
+        el.innerHTML = section(
+            "01 · GELİŞMİŞ ANALİZ",
+            `
+            <div style="
+                font-size:18px;
+                font-weight:800;
+                margin-bottom:12px;
+            ">📊 Gelişmiş Bütçe Analizi</div>
+
+            ${proEmpty(
+                "Henüz kaydedilmiş bütçe bulunmuyor."
+            )}
+            `
+        );
+
+        return;
+    }
+
+    var last =
+        history[history.length - 1];
+
+    var previous =
+        history.length > 1
+            ? history[history.length - 2]
+            : null;
+
+    var income =
+        numberFrom(
+            last,
+            ["income", "totalIncome"]
+        );
+
+    var expenses =
+        numberFrom(
+            last,
+            ["expenses", "totalExpenses"]
+        );
+
+    var available =
+        numberFrom(
+            last,
+            ["available", "afterGoal"]
+        );
+
+    var fixed =
+        numberFrom(
+            last,
+            ["fixed", "totalFixed"]
+        );
+
+    var variable =
+        numberFrom(
+            last,
+            ["variable", "totalVariable"]
+        );
+
+    var monthlyGoal =
+        numberFrom(
+            last,
+            ["monthlyGoal"]
+        );
+
+    var expenseRate =
+        income > 0
+            ? expenses / income * 100
+            : 0;
+
+    var savingRate =
+        income > 0
+            ? Math.max(0, available) / income * 100
+            : 0;
+
+    var incomeChange = 0;
+    var expenseChange = 0;
+    var availableChange = 0;
+
+    if (previous) {
+
+        var previousIncome =
+            numberFrom(
+                previous,
+                ["income", "totalIncome"]
+            );
+
+        var previousExpenses =
+            numberFrom(
+                previous,
+                ["expenses", "totalExpenses"]
+            );
+
+        var previousAvailable =
+            numberFrom(
+                previous,
+                ["available", "afterGoal"]
+            );
+
+        if (previousIncome > 0) {
+            incomeChange =
+                (
+                    (income - previousIncome) /
+                    previousIncome
+                ) * 100;
+        }
+
+        if (previousExpenses > 0) {
+            expenseChange =
+                (
+                    (expenses - previousExpenses) /
+                    previousExpenses
+                ) * 100;
+        }
+
+        if (previousAvailable !== 0) {
+            availableChange =
+                (
+                    (available - previousAvailable) /
+                    Math.abs(previousAvailable)
+                ) * 100;
+        }
+    }
+
+    /*
+     * Harcama kayıtlarından en yüksek kategoriyi bul.
+     */
+    var storage = readStorage();
+    var expenseRows = findExpenses(storage);
+
+    var categoryTotals = {};
+    var categoryTotal = 0;
+
+    for (var i = 0; i < expenseRows.length; i++) {
+
+        var expenseRow = expenseRows[i];
+
+        var expenseAmount =
+            numberFrom(
+                expenseRow,
+                ["amount", "value", "price"]
+            );
+
+        if (expenseAmount <= 0) {
+            continue;
+        }
+
+        var expenseCategory =
+            expenseRow.category ||
+            expenseRow.type ||
+            "Diğer";
+
+        expenseCategory =
+            String(expenseCategory);
+
+        if (!categoryTotals[expenseCategory]) {
+            categoryTotals[expenseCategory] = 0;
+        }
+
+        categoryTotals[expenseCategory] +=
+            expenseAmount;
+
+        categoryTotal += expenseAmount;
+    }
+
+    var topCategory = "Henüz yeterli veri yok";
+    var topCategoryAmount = 0;
+
+    Object.keys(categoryTotals).forEach(
+        function (category) {
+
+            if (
+                categoryTotals[category] >
+                topCategoryAmount
+            ) {
+
+                topCategory =
+                    category;
+
+                topCategoryAmount =
+                    categoryTotals[category];
+            }
+        }
+    );
+
+    /*
+     * Maaşa kalan gün bilgisi.
+     * app.js içindeki mevcut budget verisi varsa kullan.
+     */
+    var days = 0;
+
+    try {
+
+        if (
+            typeof budget !== "undefined" &&
+            budget &&
+            Number(budget.daysUntilSalary) > 0
+        ) {
+
+            days =
+                Number(
+                    budget.daysUntilSalary
+                );
+        }
+
+    } catch (e) {
+        days = 0;
+    }
+
+    /*
+     * Kullanılabilir paranın günlük karşılığı.
+     */
+    var daily = 0;
+
+    if (days > 0) {
+        daily =
+            Math.max(0, available) / days;
+    }
+
+    /*
+     * Otomatik durum ve öneri.
+     */
+    var statusTitle =
+        "Bütçen dengeli görünüyor.";
+
+    var statusText =
+        "Gelir ve giderlerin arasında kullanılabilir bir alan bulunuyor.";
+
+    if (income <= 0) {
+
+        statusTitle =
+            "Gelir bilgisi gerekli.";
+
+        statusText =
+            "Daha anlamlı analiz için gelir bilgini gir.";
+
+    } else if (expenses > income) {
+
+        statusTitle =
+            "Giderlerin geliri aşmış.";
+
+        statusText =
+            "Giderlerini yeniden incelemek bütçeyi dengelemene yardımcı olabilir.";
+
+    } else if (expenseRate >= 80) {
+
+        statusTitle =
+            "Gider oranı yüksek.";
+
+        statusText =
+            "Gelirinin büyük kısmı giderlere ayrılmış durumda.";
+
+    } else if (savingRate >= 25) {
+
+        statusTitle =
+            "Kullanılabilir alanın güçlü.";
+
+        statusText =
+            "Mevcut bütçende hedeflerin için ayırabileceğin bir alan bulunuyor.";
+
+    } else if (savingRate > 0) {
+
+        statusTitle =
+            "Bütçen kontrollü ilerliyor.";
+
+        statusText =
+            "Kalan paranı maaşa kadar planlı kullanman önemli.";
+
+    }
+
+    var recommendation =
+        "Harcamalarını düzenli kaydetmeye devam et.";
+
+    if (expenses > income) {
+
+        recommendation =
+            "Öncelikle zorunlu olmayan değişken giderlerini gözden geçir.";
+
+    } else if (expenseRate >= 80) {
+
+        recommendation =
+            "Giderlerinin küçük bir bölümünü azaltmak kullanılabilir bütçeni artırabilir.";
+
+    } else if (
+        monthlyGoal > 0 &&
+        available < monthlyGoal
+    ) {
+
+        recommendation =
+            "Mevcut kullanılabilir paran aylık hedef tutarının altında. Hedef süresini veya gider planını yeniden değerlendirebilirsin.";
+
+    } else if (daily > 0) {
+
+        recommendation =
+            "Maaşa kadar günlük ortalama " +
+            proMoney(daily) +
+            " seviyesini aşmamaya çalış.";
+
+    }
+
+    var comparisonHtml = "";
+
+    if (previous) {
+
+        comparisonHtml = `
+            <div style="
+                margin-top:14px;
+                padding-top:14px;
+                border-top:1px solid #163336;
+            ">
+
+                <div style="
+                    color:#20d5c3;
+                    font-size:10px;
+                    font-weight:800;
+                    letter-spacing:1px;
+                    margin-bottom:10px;
+                ">ÖNCEKİ KAYITLA KARŞILAŞTIRMA</div>
+
+                <div style="
+                    display:grid;
+                    grid-template-columns:1fr 1fr 1fr;
+                    gap:8px;
+                ">
+
+                    ${proBox(
+                        "GELİR DEĞİŞİMİ",
+                        (incomeChange >= 0 ? "+" : "") +
+                        incomeChange.toFixed(1) +
+                        "%"
+                    )}
+
+                    ${proBox(
+                        "GİDER DEĞİŞİMİ",
+                        (expenseChange >= 0 ? "+" : "") +
+                        expenseChange.toFixed(1) +
+                        "%"
+                    )}
+
+                    ${proBox(
+                        "KALAN DEĞİŞİMİ",
+                        (availableChange >= 0 ? "+" : "") +
+                        availableChange.toFixed(1) +
+                        "%"
+                    )}
+
+                </div>
+
+            </div>
+        `;
+
+    } else {
+
+        comparisonHtml = `
+            <div style="
+                margin-top:14px;
+                padding:12px;
+                border-radius:13px;
+                background:#061214;
+                border:1px solid #123336;
+                color:#71878a;
+                font-size:11px;
+                line-height:1.5;
+            ">
+                Aylık karşılaştırmanın oluşması için
+                en az iki bütçe kaydı gerekiyor.
+            </div>
+        `;
+    }
+
+    var dailyHtml = "";
+
+    if (days > 0) {
+
+        dailyHtml = `
+            ${proBox(
+                "MAAŞA KALAN GÜN",
+                String(days) + " gün"
+            )}
+
+            ${proBox(
+                "GÜNLÜK ORTALAMA",
+                proMoney(daily)
+            )}
+        `;
+
+    } else {
+
+        dailyHtml = `
+            ${proBox(
+                "GÜNLÜK PLAN",
+                "Gün bilgisi yok"
+            )}
+
+            ${proBox(
+                "GİDER ORANI",
+                expenseRate.toFixed(1) + "%"
+            )}
+        `;
+    }
+
+    el.innerHTML = section(
+        "01 · GELİŞMİŞ ANALİZ",
+        `
+        <div style="
+            font-size:18px;
+            font-weight:800;
+            margin-bottom:14px;
+        ">📊 Gelişmiş Bütçe Analizi</div>
+
+        <div style="
+            padding:15px;
+            border-radius:15px;
+            background:#061214;
+            border:1px solid #123336;
+            margin-bottom:12px;
+        ">
+
+            <div style="
+                color:#20d5c3;
+                font-size:14px;
+                font-weight:900;
+                margin-bottom:5px;
+            ">
+                ${proEsc(statusTitle)}
+            </div>
+
+            <div style="
+                color:#8da2a4;
+                font-size:12px;
+                line-height:1.55;
+            ">
+                ${proEsc(statusText)}
+            </div>
+
+        </div>
+
+        <div style="
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:9px;
+        ">
+
+            ${proBox(
+                "TOPLAM GELİR",
+                proMoney(income)
+            )}
+
+            ${proBox(
+                "TOPLAM GİDER",
+                proMoney(expenses)
+            )}
+
+            ${proBox(
+                "KULLANILABİLİR",
+                proMoney(available)
+            )}
+
+            ${proBox(
+                "GİDER / GELİR",
+                expenseRate.toFixed(1) + "%"
+            )}
+
+            ${proBox(
+                "SABİT GİDER",
+                proMoney(fixed)
+            )}
+
+            ${proBox(
+                "DEĞİŞKEN GİDER",
+                proMoney(variable)
+            )}
+
+            ${dailyHtml}
+
+        </div>
+
+        <div style="
+            margin-top:14px;
+            padding:15px;
+            border-radius:15px;
+            background:#061214;
+            border:1px solid #123336;
+        ">
+
+            <div style="
+                color:#71878a;
+                font-size:10px;
+                font-weight:800;
+                letter-spacing:1px;
+                margin-bottom:6px;
+            ">EN YÜKSEK HARCAMA KATEGORİSİ</div>
+
+            <div style="
+                font-size:16px;
+                font-weight:900;
+            ">
+                ${proEsc(topCategory)}
+            </div>
+
+            ${
+                topCategoryAmount > 0
+                    ? `
+                    <div style="
+                        color:#20d5c3;
+                        font-size:12px;
+                        margin-top:4px;
+                        font-weight:800;
+                    ">
+                        ${proEsc(
+                            proMoney(topCategoryAmount)
+                        )}
+                    </div>
+                    `
+                    : `
+                    <div style="
+                        color:#71878a;
+                        font-size:11px;
+                        margin-top:4px;
+                    ">
+                        Harcama kaydı arttıkça bu analiz
+                        daha anlamlı hale gelecek.
+                    </div>
+                    `
+            }
+
+        </div>
+
+        ${comparisonHtml}
+
+        <div style="
+            margin-top:14px;
+            padding:15px;
+            border-radius:15px;
+            background:#061214;
+            border:1px solid #123336;
+        ">
+
+            <div style="
+                color:#20d5c3;
+                font-size:10px;
+                font-weight:800;
+                letter-spacing:1px;
+                margin-bottom:7px;
+            ">💡 BÜTÇEPİLOT ÖNERİSİ</div>
+
+            <div style="
+                color:#d5dddd;
+                font-size:12px;
+                line-height:1.6;
+            ">
+                ${proEsc(recommendation)}
+            </div>
+
+        </div>
+        `
+    );
+}
+
+function renderHistory(history) {
+
+        var el =
+            document.getElementById("proHistory");
+
+        if (!el) {
+            return;
+        }
+
+        if (!history.length) {
+
+            el.innerHTML = section(
+                "02 · GEÇMİŞ",
+                `
+                <div style="
+                    font-size:18px;
+                    font-weight:800;
+                    margin-bottom:12px;
+                ">📅 Aylık Karşılaştırma</div>
+
+                ${proEmpty(
+                    "Karşılaştırma için bütçe geçmişi bulunmuyor."
+                )}
+                `
+            );
+
+            return;
+        }
+
+        var rows =
+            history.slice(-6).reverse();
+
+        var html = `
+            <div style="
+                font-size:18px;
+                font-weight:800;
+                margin-bottom:12px;
+            ">📅 Aylık Karşılaştırma</div>
+        `;
+
+        for (var i = 0; i < rows.length; i++) {
+
+            var row = rows[i];
+
+            var income =
+                numberFrom(
+                    row,
+                    ["income", "totalIncome"]
+                );
+
+            var expenses =
+                numberFrom(
+                    row,
+                    ["expenses", "totalExpenses"]
+                );
+
+            var available =
+                numberFrom(
+                    row,
+                    ["available", "afterGoal"]
+                );
+
+            var label =
+                row.month ||
+                row.date ||
+                row.timestamp ||
+                ("Bütçe " + (i + 1));
+
+            html += `
+                <div style="
+                    padding:12px 0;
+                    border-bottom:1px solid #102c2f;
+                ">
+
+                    <div style="
+                        font-size:12px;
+                        font-weight:800;
+                        margin-bottom:7px;
+                    ">${proEsc(label)}</div>
+
+                    <div style="
+                        display:grid;
+                        grid-template-columns:1fr 1fr 1fr;
+                        gap:6px;
+                    ">
+
+                        ${proBox(
+                            "GELİR",
+                            proMoney(income)
+                        )}
+
+                        ${proBox(
+                            "GİDER",
+                            proMoney(expenses)
+                        )}
+
+                        ${proBox(
+                            "KALAN",
+                            proMoney(available)
+                        )}
+
+                    </div>
+
+                </div>
+            `;
+        }
+
+        el.innerHTML =
+            section(
+                "02 · GEÇMİŞ",
+                html
+            );
+    }
+
+    function renderGoal(goal) {
+
+        var el =
+            document.getElementById("proGoal");
+
+        if (!el) {
+            return;
+        }
+
+        if (goal.target <= 0) {
+
+            el.innerHTML = section(
+                "03 · HEDEF",
+                `
+                <div style="
+                    font-size:18px;
+                    font-weight:800;
+                    margin-bottom:12px;
+                ">🎯 Gelişmiş Hedef Takibi</div>
+
+                ${proEmpty(
+                    "Henüz birikim hedefi bulunmuyor."
+                )}
+                `
+            );
+
+            return;
+        }
+
+        var percentage =
+            Math.min(
+                100,
+                Math.max(
+                    0,
+                    goal.saved / goal.target * 100
+                )
+            );
+
+        var remaining =
+            Math.max(
+                0,
+                goal.target - goal.saved
+            );
+
+        el.innerHTML = section(
+            "03 · HEDEF",
+            `
+            <div style="
+                font-size:18px;
+                font-weight:800;
+                margin-bottom:12px;
+            ">🎯 Gelişmiş Hedef Takibi</div>
+
+            <div style="
+                font-size:25px;
+                font-weight:900;
+                margin-bottom:6px;
+            ">${proMoney(goal.target)}</div>
+
+            <div style="
+                color:#8da2a4;
+                font-size:12px;
+                margin-bottom:11px;
+            ">
+                Biriken ${proMoney(goal.saved)}
+                · Kalan ${proMoney(remaining)}
+            </div>
+
+            <div style="
+                height:10px;
+                border-radius:10px;
+                background:#102a2d;
+                overflow:hidden;
+            ">
+                <div style="
+                    width:${percentage.toFixed(2)}%;
+                    height:100%;
+                    background:#20d5c3;
+                "></div>
+            </div>
+
+            <div style="
+                margin-top:8px;
+                color:#20d5c3;
+                font-size:12px;
+                font-weight:800;
+            ">%${percentage.toFixed(1)} tamamlandı</div>
+            `
+        );
+    }
+
+    function renderExpenses(expenses) {
+
+        var el =
+            document.getElementById("proExpenses");
+
+        if (!el) {
+            return;
+        }
+
+        if (!expenses.length) {
+
+            el.innerHTML = section(
+                "04 · HARCAMA",
+                `
+                <div style="
+                    font-size:18px;
+                    font-weight:800;
+                    margin-bottom:12px;
+                ">💸 Detaylı Harcama Analizi</div>
+
+                ${proEmpty(
+                    "Henüz kaydedilmiş harcama bulunmuyor."
+                )}
+                `
+            );
+
+            return;
+        }
+
+        var totals = {};
+        var total = 0;
+
+        for (var i = 0; i < expenses.length; i++) {
+
+            var row = expenses[i];
+
+            var amount =
+                numberFrom(
+                    row,
+                    ["amount", "value", "price"]
+                );
+
+            if (amount <= 0) {
+                continue;
+            }
+
+            var category =
+                row.category ||
+                row.type ||
+                "Diğer";
+
+            category = String(category);
+
+            if (!totals[category]) {
+                totals[category] = 0;
+            }
+
+            totals[category] += amount;
+            total += amount;
+        }
+
+        var keys =
+            Object.keys(totals);
+
+        if (!keys.length) {
+
+            el.innerHTML = section(
+                "04 · HARCAMA",
+                `
+                <div style="
+                    font-size:18px;
+                    font-weight:800;
+                    margin-bottom:12px;
+                ">💸 Detaylı Harcama Analizi</div>
+
+                ${proEmpty(
+                    "Geçerli harcama verisi bulunamadı."
+                )}
+                `
+            );
+
+            return;
+        }
+
+        keys.sort(function (a, b) {
+            return totals[b] - totals[a];
+        });
+
+        var html = `
+            <div style="
+                font-size:18px;
+                font-weight:800;
+                margin-bottom:14px;
+            ">💸 Detaylı Harcama Analizi</div>
+        `;
+
+        for (var j = 0; j < keys.length; j++) {
+
+            var key = keys[j];
+
+            var amount =
+                totals[key];
+
+            var percent =
+                total > 0
+                    ? amount / total * 100
+                    : 0;
+
+            html += `
+                <div style="
+                    margin-bottom:14px;
+                ">
+
+                    <div style="
+                        display:flex;
+                        justify-content:space-between;
+                        font-size:12px;
+                        margin-bottom:5px;
+                    ">
+
+                        <span>
+                            ${proEsc(key)}
+                        </span>
+
+                        <span style="
+                            color:#20d5c3;
+                            font-weight:800;
+                        ">
+                            ${proEsc(
+                                proMoney(amount)
+                            )}
+                        </span>
+
+                    </div>
+
+                    <div style="
+                        height:7px;
+                        background:#102a2d;
+                        border-radius:7px;
+                        overflow:hidden;
+                    ">
+                        <div style="
+                            width:${percent.toFixed(2)}%;
+                            height:100%;
+                            background:#20d5c3;
+                        "></div>
+                    </div>
+
+                    <div style="
+                        margin-top:3px;
+                        color:#71878a;
+                        font-size:10px;
+                    ">
+                        %${percent.toFixed(1)}
+                    </div>
+
+                </div>
+            `;
+        }
+
+        html += `
+            <div style="
+                padding-top:10px;
+                border-top:1px solid #163336;
+                font-size:13px;
+                font-weight:800;
+            ">
+                Toplam:
+                <span style="
+                    color:#20d5c3;
+                ">
+                    ${proEsc(proMoney(total))}
+                </span>
+            </div>
+        `;
+
+        el.innerHTML =
+            section(
+                "04 · HARCAMA",
+                html
+            );
+    }
+
+    function renderWarnings(
+        history,
+        expenses,
+        goal
+    ) {
+
+        var el =
+            document.getElementById("proWarnings");
+
+        if (!el) {
+            return;
+        }
+
+        var warnings = [];
+
+        if (history.length) {
+
+            var last =
+                history[history.length - 1];
+
+            var income =
+                numberFrom(
+                    last,
+                    ["income", "totalIncome"]
+                );
+
+            var expensesTotal =
+                numberFrom(
+                    last,
+                    ["expenses", "totalExpenses"]
+                );
+
+            var available =
+                numberFrom(
+                    last,
+                    ["available", "afterGoal"]
+                );
+
+            if (
+                income > 0 &&
+                expensesTotal > income
+            ) {
+
+                warnings.push(
+                    "Giderlerin gelirlerinden fazla."
+                );
+
+            } else if (
+                income > 0 &&
+                expensesTotal / income >= 0.8
+            ) {
+
+                warnings.push(
+                    "Giderlerin gelirinin %80'ine ulaştı."
+                );
+            }
+
+            if (available <= 0) {
+
+                warnings.push(
+                    "Kullanılabilir paran kalmamış veya negatif."
+                );
+            }
+        }
+
+        if (
+            goal.target > 0 &&
+            goal.saved < goal.target
+        ) {
+
+            warnings.push(
+                "Birikim hedefinde " +
+                proMoney(
+                    goal.target - goal.saved
+                ) +
+                " kaldı."
+            );
+        }
+
+        if (!warnings.length) {
+
+            el.innerHTML = section(
+                "05 · UYARILAR",
+                `
+                <div style="
+                    font-size:18px;
+                    font-weight:800;
+                    margin-bottom:12px;
+                ">⚠️ Akıllı Bütçe Uyarıları</div>
+
+                <div style="
+                    padding:14px;
+                    border-radius:14px;
+                    background:#061214;
+                    border:1px solid #123336;
+                    color:#20d5c3;
+                    font-size:12px;
+                ">
+                    ✓ Şu anda kritik bir uyarı bulunmuyor.
+                </div>
+                `
+            );
+
+            return;
+        }
+
+        var html = `
+            <div style="
+                font-size:18px;
+                font-weight:800;
+                margin-bottom:12px;
+            ">⚠️ Akıllı Bütçe Uyarıları</div>
+        `;
+
+        for (var i = 0; i < warnings.length; i++) {
+
+            html += `
+                <div style="
+                    padding:13px;
+                    margin-bottom:8px;
+                    border-radius:13px;
+                    background:#061214;
+                    border:1px solid #26383a;
+                    color:#c7d2d3;
+                    font-size:12px;
+                    line-height:1.5;
+                ">
+                    ⚠️ ${proEsc(warnings[i])}
+                </div>
+            `;
+        }
+
+        el.innerHTML =
+            section(
+                "05 · UYARILAR",
+                html
+            );
+    }
+
+    /*
+     * PRO butonuna güvenli şekilde bağlan.
+     */
+    function installPro() {
+
+        var button =
+            document.getElementById("bpProOpenButton");
+
+        var screen =
+            document.getElementById("bpProScreen");
+
+        if (!button || !screen) {
+            return;
+        }
+
+        button.onclick = function () {
+
+            buildDashboard();
+
+            screen.style.display = "block";
+
+            document.body.style.overflow = "hidden";
+        };
+    }
+
+    /*
+     * Sayfa tamamen yüklendikten sonra bağla.
+     */
+    if (
+        document.readyState === "loading"
+    ) {
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            installPro
+        );
+
+    } else {
+
+        installPro();
+    }
+
+})();
+</script>
+
+<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js")}</script>
+</body>
+</html>
