@@ -46,5 +46,24 @@ document.getElementById("b").onclick = async function(){
   m.textContent = r.error ? "Hata: " + r.error.message : "Şifre değişti! Uygulamaya dönüp giriş yapabilirsin.";
 };
 </script>
+<script>
+(function(){
+  var p = new URLSearchParams(location.search);
+  var h = new URLSearchParams(location.hash.replace(/^#/, ""));
+  var hata = h.get("error_description") || p.get("error_description");
+  var kod = p.get("code");
+  var m = document.getElementById("m");
+  if (kod) {
+    sb.auth.exchangeCodeForSession(kod).then(function(r){
+      if (r.error) { m.textContent = "Kod hatası: " + r.error.message; }
+      else { hazir = true; m.textContent = "Yeni şifreni yazabilirsin."; }
+    });
+  } else if (hata) {
+    setTimeout(function(){ m.textContent = "Bağlantı hatası: " + hata.replace(/\+/g," "); }, 4500);
+  } else if (!h.get("access_token")) {
+    setTimeout(function(){ m.textContent = "Adreste giriş anahtarı yok: sayfayı doğrudan açmışsın ya da link başka yere yönlenmiş."; }, 4500);
+  }
+})();
+</script>
 </body>
 </html>
