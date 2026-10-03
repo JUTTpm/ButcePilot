@@ -21,9 +21,11 @@ button{background:#1fd1be;color:#0b1a1f;font-weight:bold;border:none}
 <button id="b">Şifreyi Kaydet</button>
 <div id="m">Bağlantı kontrol ediliyor...</div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
 <script>
-var sb = supabase.createClient("SUPABASE_URL_BURAYA", "ANON_KEY_BURAYA");
+window.onerror=function(e){document.getElementById("m").textContent="Hata: "+e};
+window.onerror=function(e){document.getElementById("m").textContent="Hata: "+e};
+var sb = supabase.createClient("https://mmkxzutwrhgynjluwzua.supabase.co/rest/v1/", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1ta3h6dXR3cmhneW5qbHV3enVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA5NTg1NjIsImV4cCI6MjEwNjUzNDU2Mn0.aCrKmsPM_FR1wXs-9e34EmqHhxM6xS2bGTHEDzkybL4");
 var m = document.getElementById("m");
 var hazir = false;
 sb.auth.onAuthStateChange(function(ev, s){
