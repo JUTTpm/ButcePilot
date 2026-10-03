@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Şifre Yenile</title>
+<style>
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0b1a1f;color:#fff;font-family:sans-serif}
+.k{width:90%;max-width:360px;background:#10252b;padding:24px;border-radius:16px}
+input,button{width:100%;box-sizing:border-box;padding:14px;margin-top:12px;border-radius:10px;border:1px solid #1fd1be55;font-size:16px}
+input{background:#0b1a1f;color:#fff}
+button{background:#1fd1be;color:#0b1a1f;font-weight:bold;border:none}
+#m{margin-top:14px;font-size:14px}
+</style>
+</head>
+<body>
+<div class="k">
+<h2>Yeni şifre belirle</h2>
+<input id="p1" type="password" placeholder="Yeni şifre (en az 6 karakter)">
+<input id="p2" type="password" placeholder="Şifreyi tekrar yaz">
+<button id="b">Şifreyi Kaydet</button>
+<div id="m">Bağlantı kontrol ediliyor...</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+var sb = supabase.createClient("SUPABASE_URL_BURAYA", "ANON_KEY_BURAYA");
+var m = document.getElementById("m");
+var hazir = false;
+sb.auth.onAuthStateChange(function(ev, s){
+  if (s && (ev === "PASSWORD_RECOVERY" || ev === "SIGNED_IN")) {
+    hazir = true; m.textContent = "Yeni şifreni yazabilirsin.";
+  }
+});
+setTimeout(function(){
+  if (!hazir) m.textContent = "Geçersiz veya süresi dolmuş bağlantı. Uygulamadan yeniden şifre sıfırlama iste.";
+}, 4000);
+document.getElementById("b").onclick = async function(){
+  var a = document.getElementById("p1").value;
+  var b = document.getElementById("p2").value;
+  if (!hazir) { m.textContent = "Önce e-postadaki bağlantıdan gelmelisin."; return; }
+  if (a.length < 6) { m.textContent = "Şifre en az 6 karakter olmalı."; return; }
+  if (a !== b) { m.textContent = "Şifreler aynı değil."; return; }
+  var r = await sb.auth.updateUser({ password: a });
+  m.textContent = r.error ? "Hata: " + r.error.message : "Şifre değişti! Uygulamaya dönüp giriş yapabilirsin.";
+};
+</script>
+</body>
+</html>
